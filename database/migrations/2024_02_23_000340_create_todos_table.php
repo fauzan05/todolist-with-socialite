@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('todos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id')->nullable(false);
+            $table->text('content')->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
