@@ -11,6 +11,12 @@ class Todo extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'category_id',
+        'user_id',
+        'content'
+    ];
+
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
