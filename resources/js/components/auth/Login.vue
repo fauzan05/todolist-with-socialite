@@ -22,6 +22,10 @@
         <div class="text-center my-3">
             <a href="/login">Registrasi Akun</a>
         </div>
+        <div class="text-center">
+            <span>Atau</span>
+        </div>
+        <hr>
     </div>
 </template>
 

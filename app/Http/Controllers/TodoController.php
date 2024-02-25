@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -13,9 +14,20 @@ class TodoController extends Controller
         return view('todo.index');
     }
 
-    public function createTodo()
+    public function createTodo(Request $request)
     {
-        
+        Todo::create([
+            'content' => trim($request->content),
+            'user_id' => $request->user_id,
+            'category_id' => $request->category_id
+        ]);
+        return response()->json(['message' => 'Berhasil membuat todo!'], 200);
+    }
+
+    public function getTodos()
+    {
+        $todos = Todo::all();
+        return response()->json(['data' => $todos], 200);
     }
 
     public function logout(Request $request)

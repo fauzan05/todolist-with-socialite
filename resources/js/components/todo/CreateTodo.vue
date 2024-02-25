@@ -1,6 +1,7 @@
 <template>
         <div class="card-body">
             <form @submit.prevent="createTodo" class="m-4">
+
             </form>
         </div>
 </template>
@@ -11,6 +12,7 @@ import { onMounted, ref } from 'vue';
 export default {
     data() {
         return {
+            categories: [],
             loginForm: {
                 errors: [],
                 email: '',
@@ -52,6 +54,11 @@ export default {
                     console.log("error : " + error.response);
                     this.isErrorActive = true; // Set isErrorActive directly to true
                 })
+        },
+        getCategories() {
+            axios.get('api/categories').then((response) => {
+                this.categories = response.data.data;
+            });
         }
     }
 };
