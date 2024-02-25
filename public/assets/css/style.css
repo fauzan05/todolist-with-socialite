@@ -10,6 +10,7 @@
     background-color: red;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .login-with:hover{
