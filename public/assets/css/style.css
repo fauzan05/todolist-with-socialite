@@ -2,3 +2,16 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.login-with{
+    border: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.login-with:hover{
+    box-shadow: 0 5px 10px black;
+}

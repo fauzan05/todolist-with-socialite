@@ -22,10 +22,11 @@
         <div class="text-center my-3">
             <a href="/login">Registrasi Akun</a>
         </div>
-        <div class="text-center">
+        <div class="text-center my-3">
             <span>Atau</span>
         </div>
         <hr>
+        <button class="login-with my-3">Login dengan <i class="fa-brands fa-google"></i></button>
     </div>
 </template>
 
@@ -79,4 +80,27 @@ export default {
         }
     }
 };
+document.addEventListener("DOMContentLoaded", () => {
+
+const loginwithbutton = document.querySelectorAll(".login-with");
+loginwithbutton.forEach((button) => {
+    button.addEventListener("click", () => {
+        var url = "/auth/google";
+        
+        let screenWidth = window.screen.width;
+        let screenHeight = window.screen.height;
+        
+        let windowWidth = 600;
+        let windowHeight = 600;
+        
+        let leftPosition = (screenWidth - windowWidth) / 2;
+        let topPosition = (screenHeight - windowHeight) / 2;
+
+        var options = "width=" + windowWidth + ",height=" + windowHeight + ",top=" + topPosition + ",left=" + leftPosition;
+        
+        window.open(url, "_blank", options);
+    });
+})
+
+})
 </script>

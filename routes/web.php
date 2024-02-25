@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,8 @@ Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'postRegister']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
-
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 Route::middleware('auth')->group(function() {
     Route::get('/', [TodoController::class, 'index']);
     Route::get('/logout', [TodoController::class, 'logout']);
