@@ -28,4 +28,5 @@ Route::middleware('auth')->group(function() {
     Route::get('/', [TodoController::class, 'index'])->name('home');
     Route::get('/logout', [TodoController::class, 'logout']);
     Route::post('/todo', [TodoController::class, 'createTodo']);
+    Route::get('/auth/google/refresh', [GoogleController::class, 'refreshToken']);
 });
