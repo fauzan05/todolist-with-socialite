@@ -37,7 +37,7 @@ class GoogleController extends Controller
         ], [
             'access_token' => $googleUser->token,
             'refresh_token' => $googleUser->refreshToken,
-            'expires_in' => $googleUser->expiresIn
+            'expires_in' => 11
         ]);
 
         Auth::login($user, true);
