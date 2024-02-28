@@ -40,7 +40,7 @@ class GoogleController extends Controller
             'expires_in' => $googleUser->expiresIn
         ]);
 
-        Auth::login($user);
+        Auth::login($user, true);
         Cookie::queue('user', $user->getId, $user->expiresIn * 72);
         return redirect()->intended('/');
     }
@@ -56,7 +56,7 @@ class GoogleController extends Controller
             'refresh_token' => $refreshToken->refreshToken,
             'expires_in' => $refreshToken->expiresIn
         ]);
-        Auth::login($user);
+        Auth::login($user, true);
         Cookie::queue('user', $user->getId, $user->expiresIn * 72);
         return redirect()->intended('/');
     }

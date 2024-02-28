@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallb
 Route::middleware(['auth', 'refresh.token'])->group(function() {
     Route::get('/', [TodoController::class, 'index'])->name('home');
     Route::get('/logout', [TodoController::class, 'logout']);
-    Route::post('/todo', [TodoController::class, 'createTodo']);
     Route::get('/auth/google/refresh', [GoogleController::class, 'refreshToken']);
+    Route::get('/categories', [CategoryController::class, 'getCategories']);
+    Route::get('/todos', [TodoController::class, 'getTodos']);
+    Route::post('/todos', [TodoController::class, 'createTodo']);
+    Route::post('/todos/delete/{idTodo}', [TodoController::class, 'deleteTodo'])->where('idTodo', '[0-9]+');
 });

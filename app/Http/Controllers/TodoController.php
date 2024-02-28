@@ -16,18 +16,25 @@ class TodoController extends Controller
 
     public function createTodo(Request $request)
     {
-        Todo::create([
+        $todo = Todo::create([
             'content' => trim($request->content),
-            'user_id' => $request->user_id,
+            'user_id' => auth()->user()->id,
             'category_id' => $request->category_id
-        ]);
-        return response()->json(['message' => 'Berhasil membuat todo!'], 200);
+        ])->load('category');
+        
+        return response()->json(['data' => $todo], 200);
     }
 
     public function getTodos()
     {
-        $todos = Todo::all();
+        $todos = Todo::with(['category'])->orderBy('created_at', 'desc')->get();
         return response()->json(['data' => $todos], 200);
+    }
+
+    public function deleteTodo(int $id)
+    {
+        $todo = Todo::find($id)->delete();
+        return response()->json(['data' => $todo], 200);
     }
 
     public function logout(Request $request)
