@@ -17,8 +17,8 @@ class Authenticate extends Middleware
         if(!Cookie::get('user')) {
             if(Auth::check()) {
                 Auth::logout();
+                return redirect('login');
             }
-            return route('login');
         }
     }
 }

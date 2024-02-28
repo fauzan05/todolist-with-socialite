@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class TodoController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware(['auth', 'refresh.token']);
-    }
     public function index()
     {
         return view('todo.index');

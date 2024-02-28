@@ -1,65 +1,56 @@
 <template>
-        <div class="card-body">
-            <form @submit.prevent="createTodo" class="m-4">
-
-            </form>
-        </div>
+    <h2 class="text-center my-3">Buat Todo</h2>
+    <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;">
+        <form @submit.prevent="createTodos" action="#" class="row d-flex flex-column align-items-center justify-content-center">
+            <div class="my-3 col-12">
+                <label for="exampleFormControlTextarea1" class="form-label">Isi Todo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="body"></textarea>
+            </div>
+            <div class="my-3 col-12">
+                <select class="form-select" aria-label="Default select example" v-model="selected_category">
+                        <option value="" disabled selected>Pilih</option>
+                        <option :value="category.id" v-for="(category, index) in categories" :key="index">{{ category.name }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-dark mb-3">Buat Todo</button>
+        </form>
+    </div>
 </template>
-
 <script>
-import { onMounted, ref } from 'vue';
-
 export default {
     data() {
         return {
             categories: [],
-            loginForm: {
-                errors: [],
-                email: '',
-                password: '',
-                rememberMe: false,
-            },
-            isErrorActive: ref(false), // Pindahkan isAktif ke dalam data
-        };
-    },
-    setup() {
-        const input = ref(null);
-        onMounted(() => {
-            input.value.focus();
-        });
-        return {
-            input
+            body: null,
+            selected_category: null
         }
+    },
+    props: {
+        todos: Array
     },
     methods: {
-        createTodo() {
-            this.persistClient(
-                "post",
-                "/login",
-                this.loginForm
-            )
-        },
-        persistClient(method, uri, form) {
-            form.errors = [];
-            axios[method](uri, form)
-                .then(() => {
-                        form.name = "";
-                        form.email = "";
-                        form.password = "";
-                        form.confirmPassword = "";
-                        form.errors = [];
-                        window.location.href = '/';
-                })
-                .catch((error) => {
-                    console.log("error : " + error.response);
-                    this.isErrorActive = true; // Set isErrorActive directly to true
-                })
-        },
-        getCategories() {
-            axios.get('api/categories').then((response) => {
-                this.categories = response.data.data;
+        createTodos() {
+            axios.post('/todos', {
+                body: this.body,
+                category_id: this.selected_category // Sertakan selected_category dalam data yang dikirimkan
+            }).then((response) => {
+                // console.log("ini adalah body " + this.selected_category)
+                this.todos.unshift(response.data);
+                // console.log(response.data)
+                // console.log(this.todos)
+                this.body = null;
+            }).catch(err => {
+                console.log(err);
             });
         }
+    },
+    mounted() {
+        // mengambil data json pada endpoint /categories
+        axios.get('/api/categories').then((response) => {
+            // this.categories = response.data;
+        }).catch((err) => {
+            console.log(err);
+        });
     }
-};
+}
 </script>

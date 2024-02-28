@@ -24,7 +24,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postLogin']);
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'refresh.token'])->group(function() {
     Route::get('/', [TodoController::class, 'index'])->name('home');
     Route::get('/logout', [TodoController::class, 'logout']);
     Route::post('/todo', [TodoController::class, 'createTodo']);
